@@ -29,7 +29,9 @@ var storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-var upload = multer({ storage: storage });
+
+// Use multer.array('images') to handle multiple file uploads with the field name 'images'
+const upload = multer({ storage }).array('images');
 
 // Define routes
 // For static files
@@ -37,16 +39,20 @@ app.use('/images', express.static('images'));
 
 app.use(verifyJWT);
 
-app.post('/image/add', verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), upload.array('images', 10), async (req, res) => {
+app.post('/images/add', verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), async (req, res) => {
   try {
-    // Extract file information from multer
-    const uploadedFiles = req.files;
+    // Use the upload middleware to handle file uploads
+    upload(req, res, (err) => {
+      if (err) {
+        console.error('Error uploading images:', err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
 
-    // Process or store the files as needed
-    // Your file handling logic goes here
+      // Extract file information from multer
+      const uploadedFiles = req.files;
 
-    // Send a response to the Inventory Microservice
-    res.status(200).json({ message: 'Images uploaded and stored successfully!', uploadedFiles });
+      res.status(200).json({ uploadedFiles });
+    });
   } catch (error) {
     console.error('Error uploading images:', error);
     res.status(500).json({ error: 'Internal Server Error' });
