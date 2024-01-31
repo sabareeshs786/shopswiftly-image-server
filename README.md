@@ -41,10 +41,23 @@ Follow the below steps to set up the microservice in your local machine:
    REFRESH_TOKEN_SECRET=COPIED_64_CHARACTERS_LONG_STRING
    ```
 
-9. **Now run the following command to start a node.js server in development mode**
+6. **Now run the following command to start a node.js server in development mode**
     ```bash
     npm run dev
     ```
+
+7. **Install other microservices as well in the following links by following the instructions specified there**
+    
+    https://github.com/sabareeshs786/shopswiftly-profile
+    
+    https://github.com/sabareeshs786/shopswiftly-inventory
+    
+    https://github.com/sabareeshs786/shopswiftly-admin-ui
+    
+    https://github.com/sabareeshs786/shopswiftly-user-ui
+
+    https://github.com/sabareeshs786/shopswiftly-listing-display
+
 
 ### Features provided by this microservice
 
